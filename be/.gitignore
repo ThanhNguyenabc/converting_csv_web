@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.nyc
+.env
+.DS_Store
+yarn.lock
+package-lock.json
+uploads
+dist
