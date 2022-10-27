@@ -18,6 +18,7 @@ const AppTheme = extendTheme({
   styles: {
     global: (props: any) => ({
       "html, body": {
+        color: "black",
         background: mode("light.background", "dark.background")(props), //mode(light mode color, dark mode color)
       },
     }),
