@@ -1,5 +1,5 @@
 import { RequestHandler, Router } from "express";
-import uploadRouter from "./upload";
+import uploadRouter from "./uploadRoute";
 
 const Routes: Array<RequestHandler> = [uploadRouter];
 
