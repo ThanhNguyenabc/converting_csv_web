@@ -9,7 +9,7 @@
     "pathDev": "cross-env NODE_PATH=./src",
     "pathProd": "cross-env NODE_PATH=./dist",
     "start": "yarn pathDev  env-cmd -f .env.development  nodemon ./src/index.ts",
-    "start:prod": "yarn build && yarn pathProd env-cmd -f .env.production nodemon ./dist/index.js",
+    "build:prod": "yarn build && yarn pathProd env-cmd -f .env.production nodemon ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
