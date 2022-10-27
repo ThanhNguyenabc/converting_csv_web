@@ -62,8 +62,6 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     vocabularyList = data.vocabulary.split(",");
   }
 
-  console.log("-----");
-  console.log(data.descTeacherEN);
   return {
     descTeacher: {
       en: data.descTeacherEN || "",
