@@ -25,7 +25,7 @@ export const MappingLessonColum = {
   "CEFR-level": LessonColumn["cefr"],
   "Vocabulary (Separated by ,)": LessonColumn["vocabulary"],
   "Link Title (Separated by new line)": LessonColumn["linkTitle"],
-  "Teacher Description": LessonColumn["descStudentEN"],
+  "Teacher Description": LessonColumn["descTeacherEN"],
   "Main link to resources (Separated by new line)": LessonColumn["mainLink"],
 };
 
@@ -62,6 +62,8 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     vocabularyList = data.vocabulary.split(",");
   }
 
+  console.log("-----");
+  console.log(data.descTeacherEN);
   return {
     descTeacher: {
       en: data.descTeacherEN || "",
