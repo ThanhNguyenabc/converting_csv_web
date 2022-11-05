@@ -26,7 +26,6 @@ import {
 } from "utils/StringUtil";
 import { BaseResponse } from "models/Response";
 import { Attribute } from "models/Attribute.model";
-import archiver from "archiver";
 import AdmZip from "adm-zip";
 
 const writeDataToDisk = (
