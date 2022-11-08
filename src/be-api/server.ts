@@ -1,6 +1,6 @@
+import Routes from "be-api/routes";
 import express from "express";
 import next from "next";
-import Routes from "./routes";
 
 const dev = process.env.NODE_ENV !== "production";
 const PORT = parseInt(process.env.PORT || "3000", 10);
@@ -20,7 +20,7 @@ app
     });
 
     server.listen(PORT, () => {
-      console.log(`> Ready on http://localhost:${PORT}`);
+      console.log(`> Ready  on http://localhost:${PORT}`);
     });
   })
   .catch((error) => console.log("error = ", error));

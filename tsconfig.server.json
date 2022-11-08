@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "commonjs",
+      "outDir": "dist",
+      "lib": ["ES2016"],
+      "target": "ES2016",
+      "isolatedModules": false,
+      "noEmit": false,
+    },
+    "include": ["src/be-api/*"],
+  }
