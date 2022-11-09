@@ -49,7 +49,7 @@ export const mapToOutCome = (value: typeof OutComeColumn): OutCome => {
     }
 
   const result: OutCome = {
-    outComeId: value.outComeId?.toLowerCase() || "",
+    outComeId: value.outComeId?.toLowerCase()?.trim() || "",
     info: {
       en: value.desEN || "",
       vn: value.desVN || "",

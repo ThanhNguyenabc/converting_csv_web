@@ -80,8 +80,8 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     },
     links: linkList,
     title: { en: data.titleEN, vn: data.titleVN },
-    lessonId: data.lessonId?.toLowerCase() || "",
-    outComeId: data.outComeId?.toLowerCase() || "",
+    lessonId: data.lessonId?.toLowerCase()?.trim() || "",
+    outComeId: data.outComeId?.toLowerCase()?.trim() || "",
     cefr: { level: data.cefr?.toLowerCase() || "" },
     vocabulary: vocabularyList,
   };
