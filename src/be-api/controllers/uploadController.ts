@@ -34,6 +34,7 @@ const writeDataToDisk = (
   template: string
 ) =>
   new Promise<boolean>((resolve) => {
+    if(folderName.length == 0) return resolve(false)
     const path = `${parentFolder}/${folderName}`;
     createFolder(path);
     fs.writeFile(`${path}/info.dat`, template, (error) => {

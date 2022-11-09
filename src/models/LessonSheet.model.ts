@@ -47,7 +47,7 @@ export const generateVocabToList = (str: string) => {
   if (str && str.trim()?.length > 0) {
     vocabularyList = str.split(",");
   }
-  return vocabularyList.map((item) => item.trim());
+  return vocabularyList.map((item) => item?.toLowerCase().trim());
 };
 
 export const mappToLesson = (data: typeof LessonColumn): Lesson => {
