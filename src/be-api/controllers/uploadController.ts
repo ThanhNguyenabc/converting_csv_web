@@ -3,7 +3,7 @@ import * as OutComeSheetModel from "models/OutComeSheet.model";
 import { Readable } from "stream";
 import Papaparse from "papaparse";
 import fs from "fs";
-import { createFolder, isCSVFile } from "utils/FileUtil";
+import { createFolder, deleteFolder, isCSVFile } from "utils/FileUtil";
 import { DEFAULT_ERROR, SAVING_SUCCESSFULL } from "utils/MessageUtil";
 import {
   lessonTemplate,
@@ -115,6 +115,8 @@ const generateLesson = (req: Request, res: Response<BaseResponse>) => {
       return newHeader || header;
     },
     handleResult: (results) => {
+      deleteFolder(LESSON_PATH)
+
       return (results as Array<typeof LessonColumn>)
         .map(mapToLesson)
         .map((item) =>
@@ -138,6 +140,8 @@ const generateOutCome = (req: Request, res: Response<BaseResponse>) => {
       return newHeader || header;
     },
     handleResult: (results) => {
+      deleteFolder(OUTCOME_PATH)
+
       return (results as Array<typeof OutComeSheetModel.OutComeColumn>)
         .map(OutComeSheetModel.mapToOutCome)
         .map((item) =>
@@ -166,6 +170,7 @@ const generateVocab = (req: Request, res: Response<BaseResponse>) => {
       }
     },
     handleResult: () => {
+      deleteFolder(VOCAB_PATH)
       return vocabs.map((item) => {
         const vocabItem: Attribute = { en: item, vn: "" };
         return writeDataToDisk(

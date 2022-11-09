@@ -15,4 +15,12 @@ const isCSVFile = (file: Express.Multer.File) => {
   return true;
 };
 
-export { createFolder, isCSVFile };
+const deleteFolder =  (path: string) => {
+  if (fs.existsSync(path)) {
+    fs.rmSync(path, { recursive: true, force: true });
+  }
+}
+
+export { createFolder, isCSVFile, deleteFolder };
+
+
