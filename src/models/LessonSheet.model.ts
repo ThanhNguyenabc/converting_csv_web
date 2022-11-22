@@ -1,4 +1,4 @@
-import { REMOVE_LINE_BREAKS_REGEX } from "utils/StringUtil";
+import { formatURL, REMOVE_LINE_BREAKS_REGEX } from "utils/StringUtil";
 import { Attribute } from "./Attribute.model";
 import { Cefr } from "./Cefr.model";
 
@@ -66,7 +66,7 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
       linkList.push({
         en: titles[i] || "",
         vn: "",
-        url: links[i] || "",
+        url: links[i] ? formatURL(links[i]?.trim()) : "",
       });
     }
   }
