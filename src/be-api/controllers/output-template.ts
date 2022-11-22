@@ -68,6 +68,13 @@ export const lessonTemplate = (lesson: Lesson) => {
       );
     }
   }
+
+  if (lesson.projectId) {
+    output.push(
+      `\n[project]\nen = "${lesson.projectId?.en}"\nvn = "${lesson.projectId?.vn}"\nsource = "${lesson.projectId?.source}"\n`
+    );
+  }
+
   return output.join("\n");
 };
 

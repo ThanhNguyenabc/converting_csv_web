@@ -15,6 +15,7 @@ export enum LessonColumn {
   descStudentEN = "descStudentEN",
   descStudentVN = "descStudentVN",
   mainLink = "mainLink",
+  projectId = "projectId",
 }
 
 export const MappingLessonColum = {
@@ -27,6 +28,7 @@ export const MappingLessonColum = {
   "Link Title (Separated by new line)": LessonColumn["linkTitle"],
   "Teacher Description": LessonColumn["descTeacherEN"],
   "Main link to resources (Separated by new line)": LessonColumn["mainLink"],
+  "Project ID": LessonColumn["projectId"],
 };
 
 export type Link = Attribute & { url: string };
@@ -40,6 +42,7 @@ export type Lesson = {
   [LessonColumn.vocabulary]?: Array<string>;
   [LessonColumn.outComeId]: string;
   [LessonColumn.cefr]?: Cefr;
+  [LessonColumn.projectId]?: Attribute & { source?: string };
 };
 
 export const generateVocabToList = (str: string) => {
@@ -54,6 +57,9 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
   const linkList: Array<Link> = [];
   const titles = data.linkTitle?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
   const links = data.mainLink?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
+  let vocabularyList: Array<string> = generateVocabToList(
+    data.vocabulary || ""
+  );
 
   if (titles && titles.length > 0) {
     for (let i = 0; i < titles.length; i++) {
@@ -64,10 +70,6 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
       });
     }
   }
-
-  let vocabularyList: Array<string> = generateVocabToList(
-    data.vocabulary || ""
-  );
 
   return {
     descTeacher: {
@@ -84,5 +86,13 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     outComeId: data.outComeId?.toLowerCase()?.trim() || "",
     cefr: { level: data.cefr?.toLowerCase() || "" },
     vocabulary: vocabularyList,
+    projectId:
+      data.projectId !== undefined
+        ? {
+            en: "",
+            vn: "",
+            source: data.projectId.trim(),
+          }
+        : undefined,
   };
 };

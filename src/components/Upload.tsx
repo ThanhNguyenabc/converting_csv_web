@@ -41,7 +41,6 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
 
   const onBtnClick = () => {
     if (data.file) {
-      console.log("true");
       const formData = new FormData();
       formData.append("title", "csv_file");
       formData.append("file", data.file);
@@ -66,7 +65,6 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
       
         })
         .catch((error) => {
-          console.log(error);
           let message = "";
           if (error instanceof AxiosError) {
             message = error.response?.data?.["message"];
