@@ -10,6 +10,7 @@ const OUTCOME_ZIP = "outcome.zip";
 const VOCAB_ZIP = "vocab.zip";
 const LESSON_ZIP = "lesson.zip";
 const URL_PREFIX = "/services/wikiaccess/?url=";
+const WIKI_PREFIX = "ilawiki.ilavietnam.com";
 
 const indexToString = (i: number): string => {
   if (i < 10) return `0${i}`;
@@ -31,4 +32,5 @@ export {
   LESSON_ZIP,
   formatURL,
   URL_PREFIX,
+  WIKI_PREFIX,
 };

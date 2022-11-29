@@ -1,4 +1,8 @@
-import { formatURL, REMOVE_LINE_BREAKS_REGEX } from "utils/StringUtil";
+import {
+  formatURL,
+  REMOVE_LINE_BREAKS_REGEX,
+  WIKI_PREFIX,
+} from "utils/StringUtil";
 import { Attribute } from "./Attribute.model";
 import { Cefr } from "./Cefr.model";
 
@@ -63,10 +67,14 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
 
   if (titles && titles.length > 0) {
     for (let i = 0; i < titles.length; i++) {
+      let url = links[i]?.trim() || "";
+      if (url.includes(WIKI_PREFIX)) {
+        url = formatURL(links[i]?.trim());
+      }
       linkList.push({
         en: titles[i] || "",
         vn: "",
-        url: links[i] ? formatURL(links[i]?.trim()) : "",
+        url: url,
       });
     }
   }
