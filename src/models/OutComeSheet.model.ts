@@ -36,6 +36,37 @@ export const mapToOutCome = (value: typeof OutComeColumn): OutCome => {
   const scoresENList = value.scoresEN?.split(REMOVE_LINE_BREAKS_REGEX) || [];
   const scoresVNList = value.scoresVN?.split(REMOVE_LINE_BREAKS_REGEX) || [];
 
+  const result: OutCome = {
+    outComeId: value.outComeId?.toLowerCase()?.trim() || "",
+    info: {
+      en: value.desEN || "",
+      vn: value.desVN || "",
+    },
+    cefr: {
+      level: value.cefr?.toLowerCase(),
+    },
+    level1: {
+      en: "",
+      vn: "",
+    },
+    level2: {
+      en: "",
+      vn: "",
+    },
+    level3: {
+      en: "",
+      vn: "",
+    },
+    level4: {
+      en: "",
+      vn: "",
+    },
+    level5: {
+      en: "",
+      vn: "",
+    },
+  };
+
   const allLevel: {
     [key: string]: Attribute;
   } = {};
@@ -48,17 +79,5 @@ export const mapToOutCome = (value: typeof OutComeColumn): OutCome => {
       };
     }
 
-  const result: OutCome = {
-    outComeId: value.outComeId?.toLowerCase()?.trim() || "",
-    info: {
-      en: value.desEN || "",
-      vn: value.desVN || "",
-    },
-    cefr: {
-      level: value.cefr?.toLowerCase(),
-    },
-    ...allLevel,
-  };
-
-  return result;
+  return { ...result, ...allLevel };
 };
