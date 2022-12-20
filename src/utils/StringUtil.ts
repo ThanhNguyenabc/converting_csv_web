@@ -1,4 +1,4 @@
-const REMOVE_LINE_BREAKS_REGEX = /\n+/g;
+const REMOVE_LINE_BREAKS_REGEX = /[\r\n]+/g;
 const UPLOAD_PATH = process.env.UPLOAD_PATH
   ? `${process.env.UPLOAD_PATH}/`
   : "";
