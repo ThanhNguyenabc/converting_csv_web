@@ -45,6 +45,8 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
       formData.append("title", "csv_file");
       formData.append("file", data.file);
 
+      setData((prev) => ({ ...prev, isLoading: true }));
+
       ApiClient.post(url, formData, {
         responseType: "blob",
       })
@@ -52,7 +54,7 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
           let message = res.status === 200 ? SAVING_SUCCESSFULL : DEFAULT_ERROR;
           setData((prev) => ({ ...prev, isLoading: false, message }));
           message && onOpen();
-          
+
           if (res.status == 200) {
             message = SAVING_SUCCESSFULL;
             var link = document.createElement("a");
@@ -60,9 +62,7 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
             link.download = zipFileName;
             link.click();
             link.remove();
-          } 
-
-      
+          }
         })
         .catch((error) => {
           let message = "";
@@ -103,6 +103,7 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
       <Input type={"file"} accept=".csv" onChange={onChangeInput} marginY="6" />
       <Button
         colorScheme={"green"}
+        loadingText="Processing"
         onClick={onBtnClick}
         isLoading={data.isLoading}
         w="200px"

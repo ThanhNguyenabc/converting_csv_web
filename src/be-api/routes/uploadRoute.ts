@@ -2,6 +2,7 @@ import {
   generateLesson,
   generateOutCome,
   generateVocab,
+  generateVocabV2,
 } from "be-api/controllers/uploadController";
 import { uploadFileService } from "be-api/services/disk_storage";
 import { Router } from "express";
@@ -26,4 +27,9 @@ uploadRouter.post(
   generateVocab
 );
 
+uploadRouter.post(
+  "/upload-vocabv2",
+  [uploadFileService.single("file")],
+  generateVocabV2
+);
 export default uploadRouter;

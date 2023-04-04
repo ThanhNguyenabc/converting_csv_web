@@ -9,7 +9,12 @@ import {
 } from "@chakra-ui/react";
 import Upload from "components/Upload";
 import React from "react";
-import { LESSON_ZIP, OUTCOME_ZIP, VOCAB_ZIP } from "utils/StringUtil";
+import {
+  LESSON_ZIP,
+  OUTCOME_ZIP,
+  VOCAB_V2_ZIP,
+  VOCAB_ZIP,
+} from "utils/StringUtil";
 
 const PAGES = [
   {
@@ -23,6 +28,10 @@ const PAGES = [
   {
     title: "Vocabulary",
     page: <Upload url={"/api/upload-vocab"} zipFileName={VOCAB_ZIP} />,
+  },
+  {
+    title: "Vocabulary-New",
+    page: <Upload url={"/api/upload-vocabv2"} zipFileName={VOCAB_V2_ZIP} />,
   },
 ];
 

@@ -5,9 +5,12 @@ const UPLOAD_PATH = process.env.UPLOAD_PATH
 const OUTCOME_PATH = `${UPLOAD_PATH}uploads/outcomes`;
 const LESSON_PATH = `${UPLOAD_PATH}uploads/lessons`;
 const VOCAB_PATH = `${UPLOAD_PATH}uploads/vocab`;
+const VOCAB_V2_PATH = `${UPLOAD_PATH}uploads/vocab-v2`;
 
 const OUTCOME_ZIP = "outcome.zip";
 const VOCAB_ZIP = "vocab.zip";
+const VOCAB_V2_ZIP = "vocab_v2.zip";
+
 const LESSON_ZIP = "lesson.zip";
 const URL_PREFIX = "/services/wikiaccess/?url=";
 const WIKI_PREFIX = "ilawiki.ilavietnam.com";
@@ -33,4 +36,6 @@ export {
   formatURL,
   URL_PREFIX,
   WIKI_PREFIX,
+  VOCAB_V2_PATH,
+  VOCAB_V2_ZIP,
 };

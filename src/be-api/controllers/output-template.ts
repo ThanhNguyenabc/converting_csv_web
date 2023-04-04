@@ -2,6 +2,7 @@ import { indexToString } from "utils/StringUtil";
 import { Lesson } from "models/LessonSheet.model";
 import { OutCome } from "models/OutComeSheet.model";
 import { Attribute } from "models/Attribute.model";
+import { VocabColumn } from "models/Vocabulary";
 
 export const outComeTemplate = (outCome: OutCome) => {
   const output: Array<string> = [];
@@ -81,5 +82,18 @@ export const lessonTemplate = (lesson: Lesson) => {
 export const vocabTemplate = (vocab: Attribute) => {
   const output: Array<string> = [];
   output.push(`[info]\nen = "${vocab?.en}"\nvn = "${vocab?.vn}"\n`);
+  return output.join("\n");
+};
+
+export const vocabV2Template = (vocab: typeof VocabColumn) => {
+  const output: Array<string> = [];
+  output.push(`[info]\nen = "${vocab?.infoEN}"\nvn = "${vocab?.infoVN}"\n`);
+  output.push(`[cefr]\nlevel = "${vocab.level}"\n`);
+  output.push(`[meta]\ntags = "${vocab.metatags}"\n`);
+  output.push(
+    `[example 00]\nen = "${vocab?.exampleEN}"\nvn = "${vocab?.exampleVN}"\n`
+  );
+  output.push(`[main]\nen = "${vocab?.vocabTerm}"\n`);
+
   return output.join("\n");
 };

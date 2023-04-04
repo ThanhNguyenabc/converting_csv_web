@@ -8,6 +8,7 @@ import { DEFAULT_ERROR, SAVING_SUCCESSFULL } from "utils/MessageUtil";
 import {
   lessonTemplate,
   outComeTemplate,
+  vocabV2Template,
   vocabTemplate,
 } from "./output-template";
 import {
@@ -22,11 +23,14 @@ import {
   OUTCOME_PATH,
   OUTCOME_ZIP,
   VOCAB_PATH,
+  VOCAB_V2_PATH,
+  VOCAB_V2_ZIP,
   VOCAB_ZIP,
 } from "utils/StringUtil";
 import { BaseResponse } from "models/Response";
 import { Attribute } from "models/Attribute.model";
 import AdmZip from "adm-zip";
+import { MappingVocabLMSColumn, VocabColumn } from "models/Vocabulary";
 
 const writeDataToDisk = (
   parentFolder: string,
@@ -34,7 +38,7 @@ const writeDataToDisk = (
   template: string
 ) =>
   new Promise<boolean>((resolve) => {
-    if(folderName.length == 0) return resolve(false)
+    if (folderName.length == 0) return resolve(false);
     const path = `${parentFolder}/${folderName}`;
     createFolder(path);
     fs.writeFile(`${path}/info.dat`, template, (error) => {
@@ -78,7 +82,9 @@ const parseCSVFile = ({
     transform: transformData,
     header: true,
     worker: true,
-    error: () => {
+    error: (error) => {
+      console.log("error");
+      console.log(error);
       response.status(400).send({ code: 400, message: DEFAULT_ERROR });
     },
     complete: async (results) => {
@@ -98,6 +104,7 @@ const parseCSVFile = ({
         response.set("Content-Length", `${data.length}`);
         response.status(200).send(data);
       } catch (error) {
+        console.log(error);
         response.status(400).send({ code: 400, message: DEFAULT_ERROR });
       }
     },
@@ -116,7 +123,7 @@ const generateLesson = (req: Request, res: Response<BaseResponse>) => {
       return newHeader || header;
     },
     handleResult: (results) => {
-      deleteFolder(LESSON_PATH)
+      deleteFolder(LESSON_PATH);
 
       return (results as Array<typeof LessonColumn>)
         .map(mapToLesson)
@@ -141,7 +148,7 @@ const generateOutCome = (req: Request, res: Response<BaseResponse>) => {
       return newHeader || header;
     },
     handleResult: (results) => {
-      deleteFolder(OUTCOME_PATH)
+      deleteFolder(OUTCOME_PATH);
 
       return (results as Array<typeof OutComeSheetModel.OutComeColumn>)
         .map(OutComeSheetModel.mapToOutCome)
@@ -171,7 +178,7 @@ const generateVocab = (req: Request, res: Response<BaseResponse>) => {
       }
     },
     handleResult: () => {
-      deleteFolder(VOCAB_PATH)
+      deleteFolder(VOCAB_PATH);
       return vocabs.map((item) => {
         const vocabItem: Attribute = { en: item, vn: "" };
         return writeDataToDisk(
@@ -183,4 +190,24 @@ const generateVocab = (req: Request, res: Response<BaseResponse>) => {
     },
   });
 };
-export { generateLesson, generateOutCome, generateVocab };
+
+const generateVocabV2 = (req: Request, res: Response<BaseResponse>) => {
+  parseCSVFile({
+    request: req,
+    response: res,
+    uploadPath: VOCAB_V2_PATH,
+    zipFileName: VOCAB_V2_ZIP,
+    transformHeader(header) {
+      const newHeader =
+        MappingVocabLMSColumn[header as keyof typeof MappingVocabLMSColumn];
+      return newHeader || header;
+    },
+    handleResult: (results) => {
+      deleteFolder(VOCAB_V2_PATH);
+      return (results as Array<typeof VocabColumn>).map((item) =>
+        writeDataToDisk(VOCAB_V2_PATH, item.vocabTerm, vocabV2Template(item))
+      );
+    },
+  });
+};
+export { generateLesson, generateOutCome, generateVocab, generateVocabV2 };
