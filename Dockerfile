@@ -22,6 +22,6 @@ COPY --from=BUILDER /app/package.json  ./
 COPY --from=BUILDER /app/.next ./.next
 COPY --from=BUILDER /app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 5050
 
 CMD ["yarn", "start"]
