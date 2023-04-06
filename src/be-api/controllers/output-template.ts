@@ -88,7 +88,7 @@ export const vocabTemplate = (vocab: Attribute) => {
 export const vocabV2Template = (vocab: typeof VocabColumn) => {
   const output: Array<string> = [];
   output.push(`[info]\nen = "${vocab?.infoEN}"\nvn = "${vocab?.infoVN}"\n`);
-  output.push(`[cefr]\nlevel = "${vocab.level}"\n`);
+  output.push(`[cefr]\nlevel = "${vocab.level?.toLocaleLowerCase()}"\n`);
   output.push(`[meta]\ntags = "${vocab.metatags}"\n`);
   output.push(
     `[example 00]\nen = "${vocab?.exampleEN}"\nvn = "${vocab?.exampleVN}"\n`
