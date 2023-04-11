@@ -46,7 +46,7 @@ export const mapToOutCome = (value: typeof OutComeKeys): OutCome => {
     },
     cefr: {
       level: value.cefr?.toLowerCase(),
-      parent: value.parentID,
+      parent: value.parentID?.toLowerCase(),
       skill: "",
       system: "",
     },
