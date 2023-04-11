@@ -15,12 +15,34 @@ const isCSVFile = (file: Express.Multer.File) => {
   return true;
 };
 
-const deleteFolder =  (path: string) => {
+const deleteFolder = (path: string) => {
   if (fs.existsSync(path)) {
     fs.rmSync(path, { recursive: true, force: true });
   }
-}
+};
 
-export { createFolder, isCSVFile, deleteFolder };
+const writeInfoDatFile = async (
+  parentFolder: string,
+  folderName: string,
+  template: string
+) => {
+  try {
+    if (folderName.length == 0) return false;
+    const path = `${parentFolder}/${folderName}`;
+    createFolder(path);
+    return await new Promise<boolean>((resolve) => {
+      fs.writeFile(`${path}/info.dat`, template, (error) => {
+        if (error) {
+          return resolve(false);
+        }
+        return resolve(true);
+      });
+    }).catch((error) => {
+      throw error;
+    });
+  } catch (error) {
+    return false;
+  }
+};
 
-
+export { createFolder, isCSVFile, deleteFolder, writeInfoDatFile };

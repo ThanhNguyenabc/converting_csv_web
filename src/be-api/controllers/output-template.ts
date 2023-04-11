@@ -2,7 +2,8 @@ import { indexToString } from "utils/StringUtil";
 import { Lesson } from "models/LessonSheet.model";
 import { OutCome } from "models/OutComeSheet.model";
 import { Attribute } from "models/Attribute.model";
-import { VocabColumn } from "models/Vocabulary";
+import { VocabKeys } from "models/Vocabulary";
+import { CEFRLevel } from "models/CefrLevel.model";
 
 export const outComeTemplate = (outCome: OutCome) => {
   const output: Array<string> = [];
@@ -10,7 +11,7 @@ export const outComeTemplate = (outCome: OutCome) => {
     `[info]\nen = "${outCome.info?.en}"\nvn = "${outCome.info?.vn}"\n`
   );
   output.push(
-    `[cefr]\nlevel = "${outCome.cefr?.level}"\nskill = ""\nsystem = ""\nparent = ""\n`
+    `[cefr]\nlevel = "${outCome.cefr?.level}"\nskill = "${outCome.cefr?.skill}"\nsystem = "${outCome.cefr?.system}"\nparent = "${outCome.cefr?.parent}"\n`
   );
   output.push(
     `[lv 1]\nen = "${outCome.level1?.en}"\nvn = "${outCome.level1?.vn}"\n`
@@ -85,7 +86,7 @@ export const vocabTemplate = (vocab: Attribute) => {
   return output.join("\n");
 };
 
-export const vocabV2Template = (vocab: typeof VocabColumn) => {
+export const vocabV2Template = (vocab: typeof VocabKeys) => {
   const output: Array<string> = [];
   output.push(`[info]\nen = "${vocab?.infoEN}"\nvn = "${vocab?.infoVN}"\n`);
   output.push(`[cefr]\nlevel = "${vocab.level?.toLocaleLowerCase()}"\n`);
@@ -94,6 +95,15 @@ export const vocabV2Template = (vocab: typeof VocabColumn) => {
     `[example 00]\nen = "${vocab?.exampleEN}"\nvn = "${vocab?.exampleVN}"\n`
   );
   output.push(`[main]\nen = "${vocab?.vocabTerm}"\n`);
+
+  return output.join("\n");
+};
+
+export const cefrLevelTemplate = (cefr: CEFRLevel) => {
+  const output: Array<string> = [];
+  output.push(
+    `[info]\nen = "${cefr?.info?.en || ""}"\nvn = "${cefr?.info?.vn || ""}"\n`
+  );
 
   return output.join("\n");
 };

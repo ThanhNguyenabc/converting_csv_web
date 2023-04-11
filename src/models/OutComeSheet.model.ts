@@ -2,28 +2,30 @@ import { REMOVE_LINE_BREAKS_REGEX } from "utils/StringUtil";
 import { Attribute } from "./Attribute.model";
 import { Cefr } from "./Cefr.model";
 
-export enum OutComeColumn {
-  outComeId = "outComeId",
-  desEN = "desEN",
-  desVN = "desVN",
-  cefr = "cefr",
-  scoresEN = "scoresEN",
-  scoresVN = "scoresVN",
-}
+export const OutComeKeys = {
+  outComeId: "outComeId",
+  desEN: "desEN",
+  desVN: "desVN",
+  cefr: "cefr",
+  scoresEN: "scoresEN",
+  scoresVN: "scoresVN",
+  parentID: "parentID",
+} as const;
 
-export const MappingOutComeColum = {
-  "Outcome ID": OutComeColumn["outComeId"],
-  "Description (EN)": OutComeColumn["desEN"],
-  "Description (VN)": OutComeColumn["desVN"],
-  "CEFR-level": OutComeColumn["cefr"],
-  "Scores (EN, Separated by new line)": OutComeColumn["scoresEN"],
-  "Scores (VN, Separated by new line)": OutComeColumn["scoresVN"],
+export const OutComeSheetColumns = {
+  "Outcome ID": OutComeKeys["outComeId"],
+  "CEFR-level": OutComeKeys["cefr"],
+  "CEFR Parents ID": OutComeKeys["parentID"],
+  "Description (EN)": OutComeKeys["desEN"],
+  "Description (VN)": OutComeKeys["desVN"],
+  "Scores (EN, Separated by new line)": OutComeKeys["scoresEN"],
+  "Scores (VN, Separated by new line)": OutComeKeys["scoresVN"],
 };
 
 export type OutCome = {
-  [OutComeColumn.outComeId]: string;
+  [OutComeKeys.outComeId]: string;
   info?: Attribute;
-  [OutComeColumn.cefr]?: Cefr;
+  [OutComeKeys.cefr]?: Cefr;
   meta?: string;
   level1?: Attribute;
   level2?: Attribute;
@@ -32,7 +34,7 @@ export type OutCome = {
   level5?: Attribute;
 };
 
-export const mapToOutCome = (value: typeof OutComeColumn): OutCome => {
+export const mapToOutCome = (value: typeof OutComeKeys): OutCome => {
   const scoresENList = value.scoresEN?.split(REMOVE_LINE_BREAKS_REGEX) || [];
   const scoresVNList = value.scoresVN?.split(REMOVE_LINE_BREAKS_REGEX) || [];
 
@@ -44,7 +46,11 @@ export const mapToOutCome = (value: typeof OutComeColumn): OutCome => {
     },
     cefr: {
       level: value.cefr?.toLowerCase(),
+      parent: value.parentID,
+      skill: "",
+      system: "",
     },
+
     level1: {
       en: "",
       vn: "",

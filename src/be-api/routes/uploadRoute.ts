@@ -1,4 +1,5 @@
 import {
+  generateCEFR,
   generateLesson,
   generateOutCome,
   generateVocab,
@@ -10,26 +11,33 @@ import { Router } from "express";
 const uploadRouter = Router();
 
 uploadRouter.post(
-  "/upload-lesson",
+  "/v1/upload-lesson",
   [uploadFileService.single("file")],
   generateLesson
 );
 
 uploadRouter.post(
-  "/upload-outcome",
+  "/v1/upload-outcome",
   [uploadFileService.single("file")],
   generateOutCome
 );
 
 uploadRouter.post(
-  "/upload-vocab",
+  "/v1/upload-vocab",
   [uploadFileService.single("file")],
   generateVocab
 );
 
 uploadRouter.post(
-  "/upload-vocabv2",
+  "/v2/upload-vocab",
   [uploadFileService.single("file")],
   generateVocabV2
 );
+
+uploadRouter.post(
+  "/v1/upload-cefr",
+  [uploadFileService.single("file")],
+  generateCEFR
+);
+
 export default uploadRouter;

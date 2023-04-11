@@ -9,29 +9,31 @@ import {
 } from "@chakra-ui/react";
 import Upload from "components/Upload";
 import React from "react";
-import {
-  LESSON_ZIP,
-  OUTCOME_ZIP,
-  VOCAB_V2_ZIP,
-  VOCAB_ZIP,
-} from "utils/StringUtil";
 
 const PAGES = [
   {
-    title: "Create OutCome",
-    page: <Upload url={"/api/upload-outcome"} zipFileName={OUTCOME_ZIP} />,
+    title: "OutCome",
+    page: <Upload url={"/v1/upload-outcome"} zipFileName={`outcome.zip`} />,
   },
   {
-    title: "Create Lesson",
-    page: <Upload url={"/api/upload-lesson"} zipFileName={LESSON_ZIP} />,
+    title: "Lesson",
+    page: <Upload url={"/v1/upload-lesson"} zipFileName={"lesson.zip"} />,
   },
   {
     title: "Vocabulary",
-    page: <Upload url={"/api/upload-vocab"} zipFileName={VOCAB_ZIP} />,
+    page: <Upload url={"/v1/upload-vocab"} zipFileName={"vocab.zip"} />,
   },
   {
     title: "Vocabulary-New",
-    page: <Upload url={"/api/upload-vocabv2"} zipFileName={VOCAB_V2_ZIP} />,
+    page: <Upload url={"/v2/upload-vocab"} zipFileName={"vocabV2.zip"} />,
+  },
+  {
+    title: "OutCome-New",
+    page: <Upload url={"/v1/upload-outcome"} zipFileName={"outcomeV2.zip"} />,
+  },
+  {
+    title: "CEFR",
+    page: <Upload url={"/v1/upload-cefr"} zipFileName={"cefr.zip"} />,
   },
 ];
 
