@@ -105,6 +105,6 @@ export const cefrLevelTemplate = (cefr: CEFRLevel) => {
   output.push(
     `[info]\nen = "${cefr?.info?.en || ""}"\nvn = "${cefr?.info?.vn || ""}"\n`
   );
-
+  output.push(`[meta]\ntags = "${cefr.meta}"\n`);
   return output.join("\n");
 };
