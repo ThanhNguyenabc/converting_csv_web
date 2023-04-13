@@ -13,6 +13,7 @@ export const outComeTemplate = (outCome: OutCome) => {
   output.push(
     `[cefr]\nlevel = "${outCome.cefr?.level}"\nskill = "${outCome.cefr?.skill}"\nsystem = "${outCome.cefr?.system}"\nparent = "${outCome.cefr?.parent}"\n`
   );
+  output.push(`[meta]\ntags = "${outCome.meta}"\n`);
   output.push(
     `[lv 1]\nen = "${outCome.level1?.en}"\nvn = "${outCome.level1?.vn}"\n`
   );
