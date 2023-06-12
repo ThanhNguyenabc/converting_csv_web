@@ -74,10 +74,14 @@ export const lessonTemplate = (lesson: Lesson) => {
 
   if (lesson.projectId) {
     output.push(
-      `\n[project]\nen = "${lesson.projectId?.en}"\nvn = "${lesson.projectId?.vn}"\nsource = "${lesson.projectId?.source}"\n`
+      `\n[project]\nen = "${lesson.projectId?.en}"\nvn = "${lesson.projectId?.vn}"\nsource = "${lesson.projectId?.source}"`
     );
   }
 
+  if (lesson.skills && lesson.skills.length > 0) {
+    output.push(`\n[core skills]`);
+    lesson.skills?.forEach((item) => output.push(item));
+  }
   return output.join("\n");
 };
 

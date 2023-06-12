@@ -1,5 +1,6 @@
 import {
   formatURL,
+  indexToString,
   REMOVE_LINE_BREAKS_REGEX,
   WIKI_PREFIX,
 } from "utils/StringUtil";
@@ -20,6 +21,7 @@ export enum LessonColumn {
   descStudentVN = "descStudentVN",
   mainLink = "mainLink",
   projectId = "projectId",
+  skills = "skills",
 }
 
 export const MappingLessonColum = {
@@ -33,6 +35,7 @@ export const MappingLessonColum = {
   "Teacher Description": LessonColumn["descTeacherEN"],
   "Main link to resources (Separated by new line)": LessonColumn["mainLink"],
   "Project ID": LessonColumn["projectId"],
+  Skills: LessonColumn["skills"],
 };
 
 export type Link = Attribute & { url: string };
@@ -47,6 +50,7 @@ export type Lesson = {
   [LessonColumn.outComeId]: string;
   [LessonColumn.cefr]?: Cefr;
   [LessonColumn.projectId]?: Attribute & { source?: string };
+  [LessonColumn.skills]?: Array<string>;
 };
 
 export const generateVocabToList = (str: string) => {
@@ -102,5 +106,9 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
             source: data.projectId.trim(),
           }
         : undefined,
+
+    skills: data.skills
+      .split(",")
+      .map((item, index) => `skill ${indexToString(index)} = "${item.trim()}"`),
   };
 };
