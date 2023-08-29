@@ -1,11 +1,13 @@
 import fs from "fs";
+import path from "path";
 
-const createFolder = (path: string) => {
-  if (path.length === 0) return false;
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path, { recursive: true });
+const createFolder = (folderPath: string) => {
+  if (folderPath.length === 0) return "";
+  const formattedPath = path.resolve(folderPath);
+  if (!fs.existsSync(formattedPath)) {
+    fs.mkdirSync(formattedPath, { recursive: true });
   }
-  return true;
+  return formattedPath;
 };
 
 const isCSVFile = (file: Express.Multer.File) => {
@@ -15,9 +17,11 @@ const isCSVFile = (file: Express.Multer.File) => {
   return true;
 };
 
-const deleteFolder = (path: string) => {
-  if (fs.existsSync(path)) {
-    fs.rmSync(path, { recursive: true, force: true });
+const deleteFolder = (folderPath: string) => {
+  const formattedPath = path.resolve(folderPath);
+
+  if (fs.existsSync(formattedPath)) {
+    fs.rmSync(formattedPath, { recursive: true, force: true });
   }
 };
 
@@ -28,10 +32,9 @@ const writeInfoDatFile = async (
 ) => {
   try {
     if (folderName.length == 0) return false;
-    const path = `${parentFolder}/${folderName}`;
-    createFolder(path);
+    const folderPath = createFolder(`${parentFolder}/${folderName}`);
     return await new Promise<boolean>((resolve) => {
-      fs.writeFile(`${path}/info.dat`, template, (error) => {
+      fs.writeFile(`${folderPath}/info.dat`, template, (error) => {
         if (error) {
           return resolve(false);
         }
