@@ -74,6 +74,8 @@ const parseCSVFile = async ({
           deleteFolder(folderPath);
           return;
         } catch (error) {
+          console.log("----error----");
+          console.log(error);
           return response
             .status(400)
             .send({ code: 400, message: DEFAULT_ERROR });
