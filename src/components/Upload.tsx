@@ -10,15 +10,10 @@ import {
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
-import { AxiosError, HttpStatusCode } from "axios";
-import { Result } from "models/Result.model";
-import ApiClient from "providers/ApiClient";
+import { AxiosError } from "axios";
+import HttpClient from "utils/HttpClient";
 import React, { ChangeEvent, useState } from "react";
-import {
-  SUCCESSFULL,
-  DEFAULT_ERROR,
-  SAVING_SUCCESSFULL,
-} from "utils/MessageUtil";
+import { DEFAULT_ERROR, SAVING_SUCCESSFULL } from "utils/MessageUtil";
 
 interface UploadSate {
   file?: File;
@@ -47,7 +42,7 @@ const Upload = ({ url, zipFileName }: UploadParams) => {
 
       setData((prev) => ({ ...prev, isLoading: true }));
 
-      ApiClient.post(url, formData, {
+      HttpClient.post(url, formData, {
         responseType: "blob",
       })
         .then((res) => {
