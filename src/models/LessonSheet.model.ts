@@ -1,6 +1,6 @@
 import {
   formatURL,
-  indexToString,
+  addZeroToNum,
   REMOVE_LINE_BREAKS_REGEX,
   WIKI_PREFIX,
 } from "utils/StringUtil";
@@ -9,7 +9,8 @@ import { Cefr } from "./Cefr.model";
 
 export enum LessonColumn {
   lessonId = "lessonId",
-  outComeId = "outComeId",
+  outComeId0 = "outComeId0",
+  outComeId1 = "outComeId1",
   titleEN = "titleEN",
   titleVN = "titleVN",
   cefr = "cefr",
@@ -26,7 +27,8 @@ export enum LessonColumn {
 
 export const MappingLessonColum = {
   "Lesson ID (HH-PP-LL-NNN)": LessonColumn["lessonId"],
-  "Outcome ID": LessonColumn["outComeId"],
+  "Outcome ID 00": LessonColumn["outComeId0"],
+  "Outcome ID 01": LessonColumn["outComeId1"],
   "Title (EN)": LessonColumn["titleEN"],
   "Title (VN)": LessonColumn["titleVN"],
   "CEFR-level": LessonColumn["cefr"],
@@ -46,8 +48,8 @@ export type Lesson = {
   descTeacher?: Attribute;
   descStudent?: Attribute;
   links?: Array<Link>;
+  outcomes?: Array<string>;
   [LessonColumn.vocabulary]?: Array<string>;
-  [LessonColumn.outComeId]: string;
   [LessonColumn.cefr]?: Cefr;
   [LessonColumn.projectId]?: Attribute & { source?: string };
   [LessonColumn.skills]?: Array<string>;
@@ -62,9 +64,12 @@ export const generateVocabToList = (str: string) => {
 };
 
 export const mappToLesson = (data: typeof LessonColumn): Lesson => {
+  const outcomes: Array<string> = [];
   const linkList: Array<Link> = [];
+
   const titles = data.linkTitle?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
   const links = data.mainLink?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
+
   let vocabularyList: Array<string> = generateVocabToList(
     data.vocabulary || ""
   );
@@ -83,6 +88,10 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     }
   }
 
+  // outcomes
+  if (data.outComeId0) outcomes.push(data.outComeId0);
+  if (data.outComeId1) outcomes.push(data.outComeId1);
+
   return {
     descTeacher: {
       en: data.descTeacherEN || "",
@@ -95,7 +104,7 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
     links: linkList,
     title: { en: data.titleEN, vn: data.titleVN },
     lessonId: data.lessonId?.toLowerCase()?.trim() || "",
-    outComeId: data.outComeId?.toLowerCase()?.trim() || "",
+    outcomes,
     cefr: { level: data.cefr?.toLowerCase() || "" },
     vocabulary: vocabularyList,
     projectId:
@@ -109,6 +118,6 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
 
     skills: data.skills
       .split(",")
-      .map((item, index) => `skill ${indexToString(index)} = "${item.trim()}"`),
+      .map((item, index) => `skill ${addZeroToNum(index)} = "${item.trim()}"`),
   };
 };
