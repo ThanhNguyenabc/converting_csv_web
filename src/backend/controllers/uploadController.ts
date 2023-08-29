@@ -25,6 +25,7 @@ import { CEFRSheetColumns, mapToCEFR } from "models/CefrLevel.model";
 import { CEFRLevel } from "models/CefrLevel.model";
 import { NextApiResponse } from "next";
 import { MulterRequest } from "models/MulterRequest.model";
+import path from "path";
 
 const parseCSVFile = async ({
   request,
@@ -60,7 +61,7 @@ const parseCSVFile = async ({
         try {
           outComePromises && (await Promise.all(outComePromises));
           const zip = new AdmZip();
-          zip.addLocalFolder(folderPath);
+          zip.addLocalFolder(path.resolve(folderPath));
           const data = zip.toBuffer();
           zip.writeZip(zipFileName);
 
