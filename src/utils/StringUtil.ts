@@ -1,7 +1,5 @@
 const REMOVE_LINE_BREAKS_REGEX = /[\r\n]+/g;
-const UPLOAD_PATH = process.env.UPLOAD_PATH
-  ? `${process.env.UPLOAD_PATH}/`
-  : "";
+const UPLOAD_PATH = "/tmp/";
 
 const URL_PREFIX = "/services/wikiaccess/?url=";
 const WIKI_PREFIX = "ilawiki.ilavietnam.com";
