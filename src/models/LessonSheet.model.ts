@@ -66,7 +66,7 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
 
   const titles = data.linkTitle?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
   const links = data.mainLink?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
-  const outcomes = data.outComeId?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
+  const outcomes = data.outComeId?.trim()?.split(",");
 
   let vocabularyList: Array<string> = generateVocabToList(
     data.vocabulary || ""
