@@ -62,8 +62,8 @@ const parseCSVFile = async ({
           outComePromises && (await Promise.all(outComePromises));
           const zip = new AdmZip();
           zip.addLocalFolder(path.resolve(folderPath));
+
           const data = zip.toBuffer();
-          zip.writeZip(zipFileName);
 
           response.setHeader("Content-Type", "application/octet-stream");
           response.setHeader(

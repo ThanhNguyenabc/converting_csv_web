@@ -9,8 +9,7 @@ import { Cefr } from "./Cefr.model";
 
 export enum LessonColumn {
   lessonId = "lessonId",
-  outComeId0 = "outComeId0",
-  outComeId1 = "outComeId1",
+  outComeId = "outComeId",
   titleEN = "titleEN",
   titleVN = "titleVN",
   cefr = "cefr",
@@ -27,8 +26,7 @@ export enum LessonColumn {
 
 export const MappingLessonColum = {
   "Lesson ID (HH-PP-LL-NNN)": LessonColumn["lessonId"],
-  "Outcome ID 00": LessonColumn["outComeId0"],
-  "Outcome ID 01": LessonColumn["outComeId1"],
+  "Outcome ID": LessonColumn["outComeId"],
   "Title (EN)": LessonColumn["titleEN"],
   "Title (VN)": LessonColumn["titleVN"],
   "CEFR-level": LessonColumn["cefr"],
@@ -64,11 +62,11 @@ export const generateVocabToList = (str: string) => {
 };
 
 export const mappToLesson = (data: typeof LessonColumn): Lesson => {
-  const outcomes: Array<string> = [];
   const linkList: Array<Link> = [];
 
   const titles = data.linkTitle?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
   const links = data.mainLink?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
+  const outcomes = data.outComeId?.trim()?.split(REMOVE_LINE_BREAKS_REGEX);
 
   let vocabularyList: Array<string> = generateVocabToList(
     data.vocabulary || ""
@@ -87,10 +85,6 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
       });
     }
   }
-
-  // outcomes
-  if (data.outComeId0) outcomes.push(data.outComeId0);
-  if (data.outComeId1) outcomes.push(data.outComeId1);
 
   return {
     descTeacher: {
