@@ -41,7 +41,7 @@ const index = () => {
   return (
     <Container maxWidth={"container.xl"} mt={10}>
       <Heading as={"h3"} size="lg">
-        Generate "info.dat" from csv file
+        Generate "info.dat" from csv file*
       </Heading>
       <Tabs mt={5} colorScheme="green" borderColor="transparent">
         <TabList width={"fit-content"}>
