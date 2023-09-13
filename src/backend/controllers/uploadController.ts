@@ -84,6 +84,7 @@ const parseCSVFile = async ({
       },
     });
   } catch (error) {
+    console.log(error);
     return response.status(500).send({ code: 500, message: DEFAULT_ERROR });
   }
 };
