@@ -44,8 +44,9 @@ const writeInfoDatFile = async (
       throw error;
     });
   } catch (error) {
-    return false;
+    console.log("writting file error = ", error);
   }
+  return false;
 };
 
 export { createFolder, isCSVFile, deleteFolder, writeInfoDatFile };

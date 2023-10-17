@@ -111,7 +111,7 @@ export const mappToLesson = (data: typeof LessonColumn): Lesson => {
         : undefined,
 
     skills: data.skills
-      .split(",")
-      .map((item, index) => `skill ${addZeroToNum(index)} = "${item.trim()}"`),
+      ?.split(",")
+      ?.map((item, index) => `skill ${addZeroToNum(index)} = "${item.trim()}"`),
   };
 };

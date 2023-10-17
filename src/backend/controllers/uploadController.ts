@@ -39,7 +39,7 @@ const parseCSVFile = async ({
   folderPath: string;
   zipFileName: string;
   transformData?: (value: string, field: string | number) => any;
-  handleResult?: (results: any) => Array<Promise<boolean>>;
+  handleResult: (results: any) => Array<Promise<boolean>>;
 }) => {
   try {
     const { file } = request;
@@ -72,7 +72,7 @@ const parseCSVFile = async ({
           );
           response.setHeader("Content-Length", `${data.length}`);
           response.status(200).send(data);
-          deleteFolder(folderPath);
+          // deleteFolder(folderPath);
           return;
         } catch (error) {
           console.log("----error----");
@@ -192,6 +192,7 @@ const generateVocabV2 = (req: MulterRequest, res: NextApiResponse) => {
         }, {} as any);
         vocabList.push(data);
       }
+
       return vocabList.map((item) =>
         writeInfoDatFile(pathFile, item.vocabTerm, vocabV2Template(item))
       );
