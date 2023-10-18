@@ -72,7 +72,7 @@ const parseCSVFile = async ({
           );
           response.setHeader("Content-Length", `${data.length}`);
           response.status(200).send(data);
-          // deleteFolder(folderPath);
+          deleteFolder(folderPath);
           return;
         } catch (error) {
           console.log("----error----");
