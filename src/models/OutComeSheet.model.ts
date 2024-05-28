@@ -7,6 +7,8 @@ export const OutComeKeys = {
   desEN: "desEN",
   desVN: "desVN",
   cefr: "cefr",
+  skill: "skill",
+  system: "system",
   metaTag: "metaTag",
   scoresEN: "scoresEN",
   scoresVN: "scoresVN",
@@ -16,6 +18,8 @@ export const OutComeKeys = {
 export const OutComeSheetColumns = {
   "Outcome ID": OutComeKeys["outComeId"],
   "CEFR-level": OutComeKeys["cefr"],
+  skill: OutComeKeys["skill"],
+  system: OutComeKeys["system"],
   "CEFR Parents ID": OutComeKeys["parentID"],
   "Meta tags": OutComeKeys["metaTag"],
   "Description (EN)": OutComeKeys["desEN"],
@@ -49,8 +53,8 @@ export const mapToOutCome = (value: typeof OutComeKeys): OutCome => {
     cefr: {
       level: value.cefr?.toLowerCase(),
       parent: value.parentID?.toLowerCase(),
-      skill: "",
-      system: "",
+      skill: value.skill?.toLowerCase() ?? "",
+      system: value.system?.toLowerCase() ?? "",
     },
     meta: value.metaTag,
     level1: {
